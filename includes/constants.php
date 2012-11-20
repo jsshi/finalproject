@@ -10,13 +10,13 @@
      **********************************************************************/
 
     // your database's name
-    define("DATABASE", "pset7");
+    define("DATABASE", "finalproject");
 
     // your database's password
     define("PASSWORD", "crimson");
 
     // your database's server
-    define("SERVER", "localhost");
+    define("SERVER", "finalproject");
 
     // your database's username
     define("USERNAME", "jharvard");
