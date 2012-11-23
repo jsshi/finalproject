@@ -1,7 +1,8 @@
 <!-- Asks the user to fill out the form to submit a recipe -->
 <div class="text-center">
     <div class="row">
-        <div class="nine columns">
+    <div class="offset-by-two">
+        <div class="ten columns">
             <form action="recipe.php" method="post">
                 <fieldset>
                     <div class="row collapse">
@@ -31,4 +32,5 @@
             </form>
         </div>
     </div>
+</div>
 </div>
