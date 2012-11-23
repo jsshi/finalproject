@@ -23,8 +23,8 @@
     print("<div id='recipe' class='reveal-modal'>
         <h3>" . $row["name"] . "</h3>
         <p><i>" . $row["description"] . "</i></p>
-        <p>" . $row["ingredients"] . "</p>
+        <p>" . $ingredients . "</p>
         <p>" . $row["instructions"] . "</p>
-        <p>" . $row["tags"] . "</p>
+        <p>" . $tags . "</p>
    <a class='close-reveal-modal'>x</a></div>");
 ?>
