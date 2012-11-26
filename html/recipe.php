@@ -34,12 +34,27 @@
         for($m=0; $m<3; $m++)
             $t[$m] = isset($_POST['t'][$m]) ? 1 : 0;
         
-        // insert into database
-        $results = query("INSERT INTO recipes (name, description, milk, butter, cheese, instructions, breakfast, lunch, dinner)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-            $_POST["title"], $_POST["description"], $i[0], $i[1], $i[2],
-            $_POST["instructions"], $t[0], $t[1], $t[2]);
-        if ($results === FALSE)
+        // insert into databases
+        $rresults = query("INSERT INTO recipes (title, description, instructions) VALUES(?, ?, ?)", 
+            $_POST["title"], $_POST["description"], $_POST["instructions"]);
+        if ($rresults === FALSE)
+        {
+            apologize("The recipe could not be submitted.");
+        }
+        
+        $rows = query("SELECT LAST_INSERT_ID() AS id");
+        $id = $rows[0]["id"];
+        
+        $iresults = query("INSERT INTO ingredients (recipes_id, milk, butter, cheese) VALUES(?, ?, ?, ?)", 
+            $id, $i[0], $i[1], $i[2]);
+        if ($iresults === FALSE)
+        {
+            apologize("The recipe could not be submitted.");
+        }
+        
+        $tresults = query("INSERT INTO tags (recipes_id, breakfast, lunch, dinner) VALUES(?, ?, ?, ?)", 
+            $id, $t[0], $t[1], $t[2]);
+        if ($tresults === FALSE)
         {
             apologize("The recipe could not be submitted.");
         }

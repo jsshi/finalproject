@@ -1,4 +1,9 @@
 <!-- Displays the home page of the website -->
+<head>
+    <?php echo Pulse::css();
+    echo Pulse::javascript(); ?>
+</head>
+
 <hr/>
 <div class="row">
     <div class="twelve columns">
@@ -11,20 +16,20 @@
 <hr/>
 
 <?php foreach($rows as $row)
+{
     print("<div class='row'>
         <div class='nine columns'>
-            <p><a href='#' data-reveal-id='recipe' class='button'>" . $row["name"] . "</a></p>
-            <p>" . $row["description"] . "</p>
-        </div><hr/>
-    </div>");
-?>
-  
-<?php foreach($rows as $row)
-    print("<div id='recipe' class='reveal-modal'>
-        <h3>" . $row["name"] . "</h3>
-        <p><i>" . $row["description"] . "</i></p>
-        <p>" . $ingredients . "</p>
-        <p>" . $row["instructions"] . "</p>
-        <p>" . $tags . "</p>
-   <a class='close-reveal-modal'>x</a></div>");
+            <p><a href='#' data-reveal-id='recipe".$row["id"]."' class='button'>" . htmlspecialchars($row["title"]) . "</a></p>
+            <p>" . htmlspecialchars($row["description"]) . "</p>" . 
+            $pulse->voteHTML($row["id"]) . 
+        "</div><hr/>
+    </div>
+    <div id='recipe".$row["id"]."' class='reveal-modal'>
+        <h3>" . htmlspecialchars($row["title"]) . "</h3>
+        <p><i>" . htmlspecialchars($row["description"]) . "</i></p>
+        <p>" . $row["ingredients"] . "</p>
+        <p>" . htmlspecialchars($row["instructions"]) . "</p>
+        <p>" . $row["tags"] . "</p>
+    <a class='close-reveal-modal'>x</a></div>");
+}
 ?>
