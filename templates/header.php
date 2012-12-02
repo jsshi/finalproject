@@ -15,12 +15,12 @@
         <script src="js/modernizr.foundation.js"></script>
         <script src="js/foundation.min.js"></script>
 
+        
     </head>
 
     <body>
 
         <div class="container-fluid">
-
             <div id="top" class="twelve columns">
                 <a href="/"><img alt="Better Eats" src="img/logo.jpg"/></a>
                 See dining halls in a new way.
@@ -28,8 +28,8 @@
                     <li><a href="/">browse recipes</a></li>
                     <li><a href="/recipe.php">submit a recipe</a></li>
                 </ul>
-                
-            </div>
+            </div>                
+        </div>
 
-            <div id="middle">
+        <div id="middle">
 

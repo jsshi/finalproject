@@ -4,13 +4,17 @@
     echo Pulse::javascript(); ?>
 </head>
 
-<hr/>
 <div class="row">
-    <div class="twelve columns">
-        <center>
-            <h3>Welcome to Better Eats! <br/>
-            <small>Discover and share recipes that only use ingredients found in the dining halls.</small></h3>
-        </center>
+    <div class="eight columns">
+        <h3>Welcome to Better Eats! <br/>
+        <small>Discover and share recipes that only use ingredients found in the dining halls.</small></h3>
+    </div>
+    <div class="three columns" aligh="right">
+        <br/>
+        <form method="GET" action="index.php" name="searchForm">
+            <input type="text" name="search" placeholder="Search" value="<?php echo isset($searchTerms)?htmlspecialchars($searchTerms):''; ?>" />
+            <input type="submit" name="submit" value="Search!" />
+        </form>
     </div>
 </div>
 <hr/>
