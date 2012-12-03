@@ -1,8 +1,4 @@
 <!-- Displays the home page of the website -->
-<head>
-    <?php echo Pulse::css();
-    echo Pulse::javascript(); ?>
-</head>
 
 <div class="row">
     <div class="eight columns">
@@ -24,9 +20,7 @@
     print("<div class='row'>
         <div class='nine columns'>
             <p><a href='#' data-reveal-id='recipe".$row["id"]."' class='button'>" . htmlspecialchars($row["title"]) . "</a></p>
-            <p>" . htmlspecialchars($row["description"]) . "</p>" . 
-            $pulse->voteHTML($row["id"]) . 
-        "</div><hr/>
+            <p>" . htmlspecialchars($row["description"]) . "</p></div><hr/>
     </div>
     <div id='recipe".$row["id"]."' class='reveal-modal'>
         <h3>" . htmlspecialchars($row["title"]) . "</h3>
