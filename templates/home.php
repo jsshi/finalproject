@@ -9,9 +9,7 @@
     <section class="seven columns" align = "center" >
         <?php
             $perpage = 10;
-            
             $numrows = count($rows);
-            
             $last = ceil($numrows / $perpage);
             
             if (isset($_GET['page']))
@@ -44,23 +42,24 @@
                 echo " <a href='?page=$nextpage'>NEXT ></a>  ";
                 echo " <a href='?page=$lastpage'>LAST >></a> ";
             }
-        echo "<p>";
+            echo "<p></p>";
         
-        for($i = $start; $i <= $end; $i++)
-        {
-            print("<div class='row'>
-                <div class='twelve columns'>
-                    <p><a href='#' data-reveal-id='recipe".$rows[$i]["id"]."' class='button'>" . htmlspecialchars($rows[$i]["title"]) . "</a></p>
-                    <p>" . htmlspecialchars($rows[$i]["description"]) . "</p></div><hr/>
-            </div>
-            <div id='recipe".$rows[$i]["id"]."' class='reveal-modal'>
-                <h3>" . htmlspecialchars($rows[$i]["title"]) . "</h3>
-                <p><i>" . htmlspecialchars($rows[$i]["description"]) . "</i></p>
-                <p>" . $rows[$i]["ingredients"] . "</p>
-                <p>" . htmlspecialchars($rows[$i]["instructions"]) . "</p>
-                <p>" . $rows[$i]["tags"] . "</p>
-            <a class='close-reveal-modal'>x</a></div>");
-        }
+            for($i = $start; $i <= $end; $i++)
+            {
+                print("<div class='row'>
+                    <div class='twelve columns'>
+                        <p><a href='#' data-reveal-id='recipe".$rows[$i]["id"]."' class='button'>" . htmlspecialchars($rows[$i]["title"]) . "</a></p>
+                        <p>" . htmlspecialchars($rows[$i]["description"]) . "</p>
+                        <p><small>" . $rows[$i]["time"] . "</small></p></div><hr/>
+                </div>
+                <div id='recipe".$rows[$i]["id"]."' class='reveal-modal'>
+                    <h3>" . htmlspecialchars($rows[$i]["title"]) . "</h3>
+                    <p><i>" . htmlspecialchars($rows[$i]["description"]) . "</i></p>
+                    <p>" . $rows[$i]["ingredients"] . "</p>
+                    <p>" . htmlspecialchars($rows[$i]["instructions"]) . "</p>
+                    <p>" . $rows[$i]["tags"] . "</p>
+                <a class='close-reveal-modal'>x</a></div>");
+            }
         ?>
     </section>
 
@@ -72,5 +71,3 @@
     </section>
 </div>
 <hr/>
-
-

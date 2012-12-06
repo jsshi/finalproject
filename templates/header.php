@@ -20,13 +20,14 @@
 
     <body>
 
-        <div class="container-fluid">
+        <div class="row">
             <div id="top" class="twelve columns">
                 <a href="/"><img alt="Better Eats" src="img/logo.jpg"/></a>
                 See dining halls in a new way.
                 <ul class="nav-bar">
                     <li><a href="/">browse recipes</a></li>
                     <li><a href="/recipe.php">submit a recipe</a></li>
+                    <li><a href="/contact.php">contact us</a></li>
                 </ul>
             </div>                
         </div>
