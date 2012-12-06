@@ -31,7 +31,7 @@
         for($n=0; $n<3; $n++)
             $i[$n] = isset($_POST['i'][$n]) ? 1 : 0;
         
-        for($m=0; $m<3; $m++)
+        for($m=0; $m<11; $m++)
             $t[$m] = isset($_POST['t'][$m]) ? 1 : 0;
         
         // insert into databases
@@ -52,8 +52,8 @@
             apologize("The recipe could not be submitted.");
         }
         
-        $tresults = query("INSERT INTO tags (recipes_id, breakfast, lunch, dinner) VALUES(?, ?, ?, ?)", 
-            $id, $t[0], $t[1], $t[2]);
+        $tresults = query("INSERT INTO tags (recipes_id, breakfast, lunch, dinner, dessert, snack, vegetarian, vegan, healthy, glutenfree, easy, drink) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+            $id, $t[0], $t[1], $t[2], $t[3], $t[4], $t[5], $t[6], $t[7], $t[8], $t[9], $t[10]);
         if ($tresults === FALSE)
         {
             apologize("The recipe could not be submitted.");

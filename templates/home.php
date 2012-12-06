@@ -24,10 +24,10 @@
     </div>
     <div id='recipe".$row["id"]."' class='reveal-modal'>
         <h3>" . htmlspecialchars($row["title"]) . "</h3>
-        <p><i>" . htmlspecialchars($row["description"]) . "</i></p>
-        <p>" . $row["ingredients"] . "</p>
-        <p>" . htmlspecialchars($row["instructions"]) . "</p>
-        <p>" . $row["tags"] . "</p>
+        <p><b> Description: </b><i>" . htmlspecialchars($row["description"]) . "</i></p>
+        <p><b> Ingredients: </b>" . $row["ingredients"] . "</p>
+        <p><b> Instructions: </b>" . htmlspecialchars($row["instructions"]) . "</p>
+        <p><b> Tags: </b>" . $row["tags"] . "</p>
     <a class='close-reveal-modal'>x</a></div>");
 }
 ?>
