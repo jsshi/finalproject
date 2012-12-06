@@ -18,21 +18,121 @@
             $searchTermDB = mysql_real_escape_string($searchTerms); // prevent sql injection.
        
         $rows = query("SELECT * FROM ingredients WHERE $searchTermDB = 1");
-    if ($rows === FALSE)
-    {
-        $rows = query("SELECT * FROM tags WHERE $searchTermDB = 1");
         if ($rows === FALSE)
         {
-            $rows = query("SELECT * FROM recipes WHERE title like '%{$searchTermDB}%' or description like '%{$searchTermDB}%'");
-            if (count($rows) < 1)
-                apologize("The search term provided '{$searchTerms}' yielded no results.");
+            $rows = query("SELECT * FROM tags WHERE $searchTermDB = 1");
+            if ($rows === FALSE)
+            {
+                $rows = query("SELECT * FROM recipes WHERE title like '%{$searchTermDB}%' or description like '%{$searchTermDB}%'");
+                if (count($rows) < 1)
+                    apologize("The search term provided '{$searchTerms}' yielded no results.");
+                else
+                {
+                    // store values in ingredients and tags arrays
+                    foreach ($rows as &$row)
+                    {
+                        // look up ingredients from database and store in array
+                        $is = query("SELECT * FROM ingredients WHERE recipes_id=?", $row["id"]);
+                        if ($is === FALSE)
+                            apologize("Error finding ingredients.");
+                        
+                        if (count($is) == 1)
+                        {
+                            // first (and only) row
+                            $i = $is[0];
+
+                            if($i["milk"] == 1)
+                                $row["ingredients"] .= "milk, ";
+                            if($i["butter"] == 1)
+                                $row["ingredients"] .= "butter, ";
+                            if($i["cheese"] == 1)
+                                $row["ingredients"] .= "cheese, ";
+                        }
+                                
+                        // look up tags from database and store in array
+                        $ts = query("SELECT * FROM tags WHERE recipes_id=?", $row["id"]);
+                        if ($ts === FALSE)
+                            apologize("Error finding tags.");
+                        
+                        if (count($ts) == 1)
+                        {
+                            // first (and only) row
+                            $t = $ts[0];
+
+                            if($t["breakfast"] == 1)
+                                $row["tags"] .= "breakfast, ";
+                            if($t["lunch"] == 1)
+                                $row["tags"] .= "lunch, ";
+                            if($t["dinner"] == 1)
+                                $row["tags"] .= "dinner, ";
+                            if($t["dessert"] == 1)
+                                $row["tags"] .= "dessert, ";
+                            if($t["snack"] == 1)
+                                $row["tags"] .= "snack, ";
+                            if($t["vegetarian"] == 1)
+                                $row["tags"] .= "vegetarian, ";
+                            if($t["vegan"] == 1)
+                                $row["tags"] .= "vegan, ";
+                            if($t["healthy"] == 1)
+                                $row["tags"] .= "healthy, ";
+                            if($t["glutenfree"] == 1)
+                                $row["tags"] .= "gluten free, ";
+                            if($t["easy"] == 1)
+                                $row["tags"] .= "easy, ";
+                            if($t["drink"] == 1)
+                                $row["tags"] .= "drink, ";
+                        }
+                            
+                        // get rid of the final ", "
+                        $row["ingredients"] = substr($row["ingredients"], 0, -2);
+                        $row["tags"] = substr($row["tags"], 0, -2);
+                    }
+                }
+            }
             else
             {
-                // store values in ingredients and tags arrays
-                foreach ($rows as &$row)
+                foreach($rows as &$row)
                 {
+                    $row["id"] = $row["recipes_id"];
+                    
+                    if($row["breakfast"] == 1)
+                        $row["tags"] .= "breakfast, ";
+                    if($row["lunch"] == 1)
+                        $row["tags"] .= "lunch, ";
+                    if($row["dinner"] == 1)
+                        $row["tags"] .= "dinner, ";
+                    if($row["dessert"] == 1)
+                        $row["tags"] .= "dessert, ";
+                    if($row["snack"] == 1)
+                        $row["tags"] .= "snack, ";
+                    if($row["vegetarian"] == 1)
+                        $row["tags"] .= "vegetarian, ";
+                    if($row["vegan"] == 1)
+                        $row["tags"] .= "vegan, ";
+                    if($row["healthy"] == 1)
+                        $row["tags"] .= "healthy, ";
+                    if($row["glutenfree"] == 1)
+                        $row["tags"] .= "gluten free, ";
+                    if($row["easy"] == 1)
+                        $row["tags"] .= "easy, ";
+                    if($row["drink"] == 1)
+                        $row["tags"] .= "drink, ";
+                    
+                    $recs = query("SELECT * FROM recipes WHERE id=?", $row["recipes_id"]);
+                    if ($recs === FALSE)
+                        apologize("Error finding recipes.");
+
+                    if (count($recs) == 1)
+                    {
+                        $rec = $recs[0];
+                        
+                        $row["title"] = $rec["title"];
+                        $row["description"] = $rec["description"];
+                        $row["instructions"] = $rec["instructions"];
+                    }
+                        
                     // look up ingredients from database and store in array
-                    $is = query("SELECT * FROM ingredients WHERE recipes_id=?", $row["id"]);
+                    $is = query("SELECT * FROM ingredients WHERE recipes_id=?", $row["recipes_id"]);
                     if ($is === FALSE)
                         apologize("Error finding ingredients.");
                     
@@ -48,40 +148,6 @@
                         if($i["cheese"] == 1)
                             $row["ingredients"] .= "cheese, ";
                     }
-                            
-                    // look up tags from database and store in array
-                    $ts = query("SELECT * FROM tags WHERE recipes_id=?", $row["id"]);
-                    if ($ts === FALSE)
-                        apologize("Error finding tags.");
-                    
-                    if (count($ts) == 1)
-                    {
-                        // first (and only) row
-                        $t = $ts[0];
-
-                        if($t["breakfast"] == 1)
-                            $row["tags"] .= "breakfast, ";
-                        if($t["lunch"] == 1)
-                            $row["tags"] .= "lunch, ";
-                        if($t["dinner"] == 1)
-                            $row["tags"] .= "dinner, ";
-                        if($t["dessert"] == 1)
-                            $row["tags"] .= "dessert, ";
-                        if($t["snack"] == 1)
-                            $row["tags"] .= "snack, ";
-                        if($t["vegetarian"] == 1)
-                            $row["tags"] .= "vegetarian, ";
-                        if($t["vegan"] == 1)
-                            $row["tags"] .= "vegan, ";
-                        if($t["healthy"] == 1)
-                            $row["tags"] .= "healthy, ";
-                        if($t["glutenfree"] == 1)
-                            $row["tags"] .= "gluten free, ";
-                        if($t["easy"] == 1)
-                            $row["tags"] .= "easy, ";
-                        if($t["drink"] == 1)
-                            $row["tags"] .= "drink, ";
-                    }
                         
                     // get rid of the final ", "
                     $row["ingredients"] = substr($row["ingredients"], 0, -2);
@@ -93,29 +159,15 @@
         {
             foreach($rows as &$row)
             {
-                if($row["breakfast"] == 1)
-                    $row["tags"] .= "breakfast, ";
-                if($row["lunch"] == 1)
-                    $row["tags"] .= "lunch, ";
-                if($row["dinner"] == 1)
-                    $row["tags"] .= "dinner, ";
-                if($row["dessert"] == 1)
-                    $row["tags"] .= "dessert, ";
-                if($row["snack"] == 1)
-                    $row["tags"] .= "snack, ";
-                if($row["vegetarian"] == 1)
-                    $row["tags"] .= "vegetarian, ";
-                if($row["vegan"] == 1)
-                    $row["tags"] .= "vegan, ";
-                if($row["healthy"] == 1)
-                    $row["tags"] .= "healthy, ";
-                if($row["glutenfree"] == 1)
-                    $row["tags"] .= "gluten free, ";
-                if($row["easy"] == 1)
-                    $row["tags"] .= "easy, ";
-                if($row["drink"] == 1)
-                    $row["tags"] .= "drink, ";
+                $row["id"] = $row["recipes_id"];
                 
+                if($row["milk"] == 1)
+                    $row["ingredients"] .= "milk, ";
+                if($row["butter"] == 1)
+                    $row["ingredients"] .= "butter, ";
+                if($row["cheese"] == 1)
+                    $row["ingredients"] .= "cheese, ";
+                        
                 $recs = query("SELECT * FROM recipes WHERE id=?", $row["recipes_id"]);
                 if ($recs === FALSE)
                     apologize("Error finding recipes.");
@@ -129,22 +181,38 @@
                     $row["instructions"] = $rec["instructions"];
                 }
                     
-                // look up ingredients from database and store in array
-                $is = query("SELECT * FROM ingredients WHERE recipes_id=?", $row["recipes_id"]);
-                if ($is === FALSE)
-                    apologize("Error finding ingredients.");
+                // look up tags from database and store in array
+                $ts = query("SELECT * FROM tags WHERE recipes_id=?", $row["recipes_id"]);
+                if ($ts === FALSE)
+                    apologize("Error finding tags.");
                 
-                if (count($is) == 1)
+                if (count($ts) == 1)
                 {
                     // first (and only) row
-                    $i = $is[0];
-
-                    if($i["milk"] == 1)
-                        $row["ingredients"] .= "milk, ";
-                    if($i["butter"] == 1)
-                        $row["ingredients"] .= "butter, ";
-                    if($i["cheese"] == 1)
-                        $row["ingredients"] .= "cheese, ";
+                    $t = $ts[0];
+                    
+                    if($t["breakfast"] == 1)
+                        $row["tags"] .= "breakfast, ";
+                    if($t["lunch"] == 1)
+                        $row["tags"] .= "lunch, ";
+                    if($t["dinner"] == 1)
+                        $row["tags"] .= "dinner, ";
+                    if($t["dessert"] == 1)
+                        $row["tags"] .= "dessert, ";
+                    if($t["snack"] == 1)
+                        $row["tags"] .= "snack, ";
+                    if($t["vegetarian"] == 1)
+                        $row["tags"] .= "vegetarian, ";
+                    if($t["vegan"] == 1)
+                        $row["tags"] .= "vegan, ";
+                    if($t["healthy"] == 1)
+                        $row["tags"] .= "healthy, ";
+                    if($t["glutenfree"] == 1)
+                        $row["tags"] .= "gluten free, ";
+                    if($t["easy"] == 1)
+                        $row["tags"] .= "easy, ";
+                    if($t["drink"] == 1)
+                        $row["tags"] .= "drink, ";
                 }
                     
                 // get rid of the final ", "
@@ -152,70 +220,6 @@
                 $row["tags"] = substr($row["tags"], 0, -2);
             }
         }
-    }
-    else
-    {
-        foreach($rows as &$row)
-        {
-            if($row["milk"] == 1)
-                $row["ingredients"] .= "milk, ";
-            if($row["butter"] == 1)
-                $row["ingredients"] .= "butter, ";
-            if($row["cheese"] == 1)
-                $row["ingredients"] .= "cheese, ";
-                    
-            $recs = query("SELECT * FROM recipes WHERE id=?", $row["recipes_id"]);
-            if ($recs === FALSE)
-                apologize("Error finding recipes.");
-
-            if (count($recs) == 1)
-            {
-                $rec = $recs[0];
-                
-                $row["title"] = $rec["title"];
-                $row["description"] = $rec["description"];
-                $row["instructions"] = $rec["instructions"];
-            }
-                
-            // look up tags from database and store in array
-            $ts = query("SELECT * FROM tags WHERE recipes_id=?", $row["recipes_id"]);
-            if ($ts === FALSE)
-                apologize("Error finding tags.");
-            
-            if (count($ts) == 1)
-            {
-                // first (and only) row
-                $t = $ts[0];
-                
-                if($row["breakfast"] == 1)
-                    $row["tags"] .= "breakfast, ";
-                if($row["lunch"] == 1)
-                    $row["tags"] .= "lunch, ";
-                if($row["dinner"] == 1)
-                    $row["tags"] .= "dinner, ";
-                if($row["dessert"] == 1)
-                    $row["tags"] .= "dessert, ";
-                if($row["snack"] == 1)
-                    $row["tags"] .= "snack, ";
-                if($row["vegetarian"] == 1)
-                    $row["tags"] .= "vegetarian, ";
-                if($row["vegan"] == 1)
-                    $row["tags"] .= "vegan, ";
-                if($row["healthy"] == 1)
-                    $row["tags"] .= "healthy, ";
-                if($row["glutenfree"] == 1)
-                    $row["tags"] .= "gluten free, ";
-                if($row["easy"] == 1)
-                    $row["tags"] .= "easy, ";
-                if($row["drink"] == 1)
-                    $row["tags"] .= "drink, ";
-            }
-                
-            // get rid of the final ", "
-            $row["ingredients"] = substr($row["ingredients"], 0, -2);
-            $row["tags"] = substr($row["tags"], 0, -2);
-        }
-    }
     }
     else
     {
