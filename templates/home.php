@@ -20,7 +20,9 @@
     print("<div class='row'>
         <div class='nine columns'>
             <p><a href='#' data-reveal-id='recipe".$row["id"]."' class='button'>" . htmlspecialchars($row["title"]) . "</a></p>
-            <p>" . htmlspecialchars($row["description"]) . "</p></div><hr/>
+            <p>" . htmlspecialchars($row["description"]) . "</p>
+            <p><small> Posted on " . $row["time"] . "</small></p>
+        </div><hr/>
     </div>
     <div id='recipe".$row["id"]."' class='reveal-modal'>
         <h3>" . htmlspecialchars($row["title"]) . "</h3>
