@@ -1,0 +1,15 @@
+To compile our final project, please download all the source code from cs50.net/submit. Save the source code into a folder called "finalproject"
+in your vhosts folder. Then, go to a web browser of your choosing, navigate to http://finalproject/phpmyadmin, and import the file called 
+bettereats.sql. Once you do that, the website should be ready to go!
+
+To visit the website, go to a web browser and type in http://finalproject. This should lead you directly to our home page, where you will see 
+a brief description of the website on the left side of the screen, the main content in the middle, and a search bar on the right. Navigation 
+tabs along the top of the screen allow users to visit different pages of the website. The home page displays all submitted recipes. You can search 
+for recipes by ingredient, tag, or keyword using the search bar on the right. 
+
+To submit a recipe of your own, click on the "submit a recipe" tab on the navigation bar. This should lead you to a form. You can include all the 
+necessary information about your recipe on the form. Check off ingredients or tags to include them in your recipe. Once you submit the recipe, the 
+website will notify you of its successful submission. Then, you can go to the home page - by clicking on the "browse recipes" tab or on the logo at 
+the top of the screen - to view your recipe. If you want to include ingredients that are not listed on the form, you may send us an email. You can 
+also email us about any other questions, comments, or concerns about the website. Our contact information can be found on the "contact us" tab of 
+the navigation bar. We hope you enjoy using our website!

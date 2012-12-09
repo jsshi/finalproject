@@ -1,0 +1,11 @@
+breakfast
+dessert
+dinner
+drink
+easy
+glutenfree
+healthy
+lunch
+snack
+vegan
+vegetarian

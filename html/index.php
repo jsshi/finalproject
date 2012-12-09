@@ -2,14 +2,25 @@
 
     // configuration
     require("../includes/config.php");
-    
-    // set up voting
     include("../templates/votes/Pulse/Pulse.vote.class.php");
-    $pulse = new Pulse();
     
-    // define ingredients and tags
-    $ingredients = ["milk", "butter", "cheese"];
-    $tags = ["breakfast", "lunch", "dinner", "dessert", "snack", "vegetarian", "vegan", "healthy", "glutenfree", "easy", "drink"];
+    // store ingredients from txt file into array
+    $ifile = 'ingredients.txt';
+    $ihandle = fopen($ifile, 'r');
+    if ($ihandle)
+    { 
+        $ingredients = explode("\n", trim(fread($ihandle, filesize($ifile)))); 
+    }
+    fclose($ihandle);
+    
+    // store tags from txt file into array
+    $tfile = 'tags.txt';
+    $thandle = fopen($tfile, 'r');
+    if ($thandle)
+    { 
+        $tags = explode("\n", trim(fread($thandle, filesize($tfile)))); 
+    }
+    fclose($thandle);
     
     // if the user searched for something
     if (isset($_GET['search']))
@@ -32,7 +43,7 @@
             if ($rows === FALSE)
             {
                 // check in recipes database
-                $rows = query("SELECT * FROM recipes WHERE title like '%{$searchTermDB}%' or description like '%{$searchTermDB}%'");
+                $rows = query("SELECT * FROM recipes WHERE title LIKE '%{$searchTermDB}%' or description LIKE '%{$searchTermDB}%'");
                 if (count($rows) < 1)
                     apologize("The search term provided '{$searchTerms}' yielded no results.");
                 else
@@ -244,5 +255,5 @@
     }
 
     // render portfolio
-    render("home.php", ["rows" => $rows, "pulse" => $pulse]);
+    render("home.php", ["rows" => $rows]);
 ?>

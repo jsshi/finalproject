@@ -1,0 +1,25 @@
+We chose to display our recipes using buttons because we thought it would make our website more clear and organized. By using buttons,
+we were able to include only the title and description of each recipe on the home page. If users want more information, they can click 
+on the buttons to learn about instructions, ingredients, tags, etc. This way, they do not have to scroll through detailed information 
+about an undesired recipe to get to a recipe about which they actually want to learn more. 
+
+On the home page, we also have a search function. We coded the search function so that it searches through ingredients first, then tags,
+and finally the title and description. We chose to search through ingredients and tags first because searching through the title and 
+description first is too limiting. For example, if we searched for "cheese" because we wanted all recipes that included cheese, only 
+recipes with "cheese" in the title or description would appear. 
+
+Our submission form includes traditional text inputs, and also has checkboxes for ingredients and tags. We chose to use this implementation
+because we felt that users might become annoyed if they had to remember and type every ingredient in their recipe. Using checkboxes makes
+listing ingredients and tags easier. We also thought that using checkboxes would be more convenient to store submissions in our SQL database 
+because each ingredient/tag would be a boolean value, as opposed to being a unique list stored as a string for each recipe. Boolean values
+allow us to search through recipes more easily because we can simply check if a column equals 1 or 0. 
+
+Because we had three arrays (recipes, ingredients, and tags), our submission form had to insert information into each array. To link recipe titles,
+instructions, and descriptions with their ingredients and tags, we needed to ensure that they would be associated with the same id number. To do
+this, we used "SELECT LAST_INSERT_ID() AS id" to assign the same id number to all three databases.
+
+To make our code more efficient and cleaner, we kept a list of ingredients and tags in a separate .txt file. This way, we did not have to 
+list all of the ingredients and tags in our source code, and we could read the file into our php code. This also makes modifying the ingredients
+and tags lists easier. When compiling the information from each database, we added all information to an array called "row," specific to each 
+recipe, so that we only needed to render one variable when displaying the recipes. The ingredients and tags were combined into one key
+in the "row" array so that displaying the results would be easier to read. We used a loop to combine the ingredients and tags.
