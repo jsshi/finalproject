@@ -1,9 +1,9 @@
-<!-- Tells the user the recipe was submitted successfully -->
+<!-- Tells the user the form was submitted successfully -->
 <div class="text-center">
     <div class="row">
         <div class="twelve columns">
             <h3>Success!</h3>
-                <p>Your recipe was submitted successfully.</p>
+                <p>Thank you.</p>
         </div>
     </div>
 </div>

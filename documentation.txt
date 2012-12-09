@@ -1,6 +1,6 @@
 To compile our final project, please download all the source code from cs50.net/submit. Save the source code into a folder called "finalproject"
 in your vhosts folder. Then, go to a web browser of your choosing, navigate to http://finalproject/phpmyadmin, and import the file called 
-bettereats.sql. Once you do that, the website should be ready to go!
+bettereats.sql.zip. Once you do that, the website should be ready to go!
 
 To visit the website, go to a web browser and type in http://finalproject. This should lead you directly to our home page, where you will see 
 a brief description of the website on the left side of the screen, the main content in the middle, and a search bar on the right. Navigation 

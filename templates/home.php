@@ -26,6 +26,29 @@
             
             if ($end > $numrows - 1)
                 $end = $numrows - 1;
+                
+            // adds page navigation links
+            if ($page == 1)
+                echo "<< FIRST  < PREV ";
+            else
+            {
+                $prevpage = $page - 1;
+                echo " <a href='?page=1'> << FIRST</a> ";
+                echo "  <a href='?page=$prevpage'> < PREV</a> ";
+            }
+            
+            echo " ( Page $page of $last ) ";
+            
+            if ($page == $last)
+                echo " NEXT >  LAST >> ";
+            else
+            {
+                $nextpage = $page + 1;
+                echo " <a href='?page=$nextpage'>NEXT ></a>  ";
+                echo " <a href='?page=$last'>LAST >></a> ";
+            }
+            
+            print("<hr/>");
             
             // loops through recipes on that page
             for($i = $start; $i <= $end; $i++)
